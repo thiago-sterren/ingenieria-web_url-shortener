@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="glass-card">
+    <h1>Acorta tus enlaces</h1>
+    <p style="text-align: center; color: #94a3b8; margin-bottom: 2rem;">Pega tu URL larga abajo y obtén un enlace corto, rápido y seguro.</p>
+    
+    <form method="POST">
+        {% csrf_token %}
+        <div class="input-group">
+            <input type="url" name="original_url" placeholder="https://ejemplo.com/mi-url-muy-larga" required>
+            <button type="submit" class="btn">Acortar</button>
+        </div>
+    </form>
+
+    {% if short_url %}
+    <div class="result-box">
+        <p style="margin-top: 0; color: #94a3b8;">¡Tu enlace está listo!</p>
+        <a href="{{ short_url }}" target="_blank">{{ short_url }}</a>
+        <p style="margin-bottom: 0; margin-top: 1rem; font-size: 0.9rem; color: #64748b;">
+            Destino: {{ url_obj.original_url|truncatechars:50 }}
+        </p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

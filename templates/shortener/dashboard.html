@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="glass-card">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+        <h2 style="margin: 0; font-size: 2rem; background: linear-gradient(to right, #60a5fa, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Mis URLs</h2>
+        <a href="{% url 'index' %}" class="btn" style="text-decoration: none;">+ Nueva URL</a>
+    </div>
+
+    {% if urls %}
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>URL Corta</th>
+                    <th>Destino Original</th>
+                    <th>Creado el</th>
+                    <th style="text-align: right;">Clics</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for url in urls %}
+                <tr>
+                    <td>
+                        <a href="{{ base_url }}{{ url.short_id }}" target="_blank" style="font-weight: 500;">
+                            {{ base_url }}{{ url.short_id }}
+                        </a>
+                    </td>
+                    <td>
+                        <span title="{{ url.original_url }}" style="color: #cbd5e1;">
+                            {{ url.original_url|truncatechars:45 }}
+                        </span>
+                    </td>
+                    <td style="color: #94a3b8;">{{ url.created_at|date:"d M, Y" }}</td>
+                    <td style="text-align: right;">
+                        <span style="background: rgba(59, 130, 246, 0.2); color: #60a5fa; padding: 0.25rem 0.75rem; border-radius: 999px; font-weight: 600;">
+                            {{ url.clicks }}
+                        </span>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div style="text-align: center; padding: 3rem 0; color: #94a3b8;">
+        <p>Aún no has acortado ninguna URL.</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
