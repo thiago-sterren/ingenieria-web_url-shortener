@@ -7,7 +7,6 @@ class HardcodedAuthBackend(ModelBackend):
             try:
                 user = User.objects.get(username=username)
             except User.DoesNotExist:
-                # Crear el usuario si no existe
                 user = User(username=username)
                 user.is_staff = True
                 user.is_superuser = True
