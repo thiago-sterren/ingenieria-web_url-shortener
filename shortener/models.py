@@ -4,9 +4,6 @@ from hashids import Hashids
 
 hashids = Hashids(salt="url_shortener_secret_salt_123", min_length=5)
 
-class ShortenedURL(models.fields.Field):
-    pass # Fix for pylance
-
 class ShortenedURL(models.Model):
     original_url = models.URLField(max_length=2000)
     short_id = models.CharField(max_length=15, unique=True, blank=True, null=True)
